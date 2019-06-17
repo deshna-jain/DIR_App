@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:padding="@dimen/padding"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logo" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleTv"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/padding"
+            android:text="@string/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/desTv"
+            android:textSize="@dimen/text_size_large"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/padding"
+            android:text="@string/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/okBtn"
+        android:text="Ok"
+        android:textSize="@dimen/text_size_large"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

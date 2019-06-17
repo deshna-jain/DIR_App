@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="25dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="@string/screen_name"
+            android:textColor="@android:color/black"
+            android:textSize="25dp" />
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/logo"></ImageView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:background="@android:color/holo_green_light"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="25dp">
+
+        <EditText
+            android:id="@+id/userNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:hint="@string/username"
+            android:textColor="@android:color/black" />
+
+        <EditText
+            android:id="@+id/passwordEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:hint="@string/password"
+            android:textColor="@android:color/black"
+            android:inputType="textPassword"/>
+
+        <Button
+            android:id="@+id/LoginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/login"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/not_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/not_registered"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/copyright"
+            android:textColor="@android:color/holo_purple"
+            android:textSize="17dp" />
+    </LinearLayout>
+
+</LinearLayout>

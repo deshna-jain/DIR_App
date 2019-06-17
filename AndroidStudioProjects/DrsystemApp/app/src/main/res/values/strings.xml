@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">DrsystemApp</string>
+    <string name="screen_name">Member Directory</string>
+    <string name="not_registered">Doesn\'t have an account?create new!</string>
+    <string name="copyright">All rights reserved to SGSITS</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="register">REGISTRATION</string>
+    <string name="fname">First name</string>
+    <string name="name">Name</string>
+    <string name="lname">Last name</string>
+    <string name="city">City</string>
+    <string name="profile">My Profile</string>
+    <string name="description">Description</string>
+    <string name="tnc">Terms and conditions</string>
+    <string name="edit">Edit Profile</string>
+    <string name="srch">Search</string>
+    <string name="lgout">Logout</string>
+    <string name="abtus">About Us</string>
+    <string name="share">Share</string>
+    <string name="email">Email</string>
+    <string name="pin">Pincode</string>
+    <string name="mno">Contact no.</string>
+    <string name="nxt">NEXT</string>
+    <string name="bck">BACK</string>
+    <string name="post">Current Working Post</string>
+    <string name="college">College Name</string>
+    <string name="school">SchoolName</string>
+    <string name="Hobbies">Hobbies</string>
+    <string name="Country">Country</string>
+    <string name="Exp">Working Experience</string>
+    <string name="bsd">Basic Details</string>
+    <string name="Address">Address</string>
+    <string name="skill">Skills and Achievements</string>
+    <string name="skills">Skills</string>
+
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+</resources>
