@@ -24,6 +24,7 @@
     <string name="mno">Contact no.</string>
     <string name="nxt">NEXT</string>
     <string name="bck">BACK</string>
+    <string name="dob">Date of Birth</string>
     <string name="post">Current Working Post</string>
     <string name="college">College Name</string>
     <string name="school">SchoolName</string>
@@ -42,6 +43,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="fpasssword">Forgot password!!</string>
+    <string name="submit">SUBMIT</string>
 
 
 </resources>

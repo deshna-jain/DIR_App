@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mUserNameEt;
     private EditText mpasswordEt;
     private Button mLoginBtn;
-
+    private TextView fpass;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUserNameEt= (EditText) findViewById(R.id.userNameEt);
         mpasswordEt= (EditText) findViewById(R.id.passwordEt);
         mLoginBtn= (Button) findViewById(LoginBtn);
+        fpass=(TextView) findViewById(R.id.forgetPass);
+        fpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFogotPasswordScreen();
+            }
+        });
         mNotLoginTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLoginBtn.setOnClickListener(this);
 
     }
+
+    private void startFogotPasswordScreen() {
+        Intent intent= new Intent(this, ForgotPass.class);
+        startActivity(intent);
+    }
+
+
     private void startRegisterSccreen(){
         Intent intent = new Intent(this,RegisterActivity.class);
         intent.putExtra(UtilsClass.NAME_LOGIN,"SGSITS coming..");

@@ -45,20 +45,29 @@
             android:hint="@string/username"
             android:textColor="@android:color/black" />
 
+
         <EditText
             android:id="@+id/passwordEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:hint="@string/password"
-            android:textColor="@android:color/black"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/forgetPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fpasssword"
+            android:textColor="@android:color/holo_purple"
+            android:layout_marginLeft="100dp"/>
 
         <Button
             android:id="@+id/LoginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0.5dp"
+            android:layout_marginTop="5dp"
             android:background="@color/colorPrimaryDark"
             android:text="@string/login"
             android:textColor="@android:color/white" />
@@ -67,7 +76,7 @@
             android:id="@+id/not_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="2dp"
             android:gravity="center"
             android:text="@string/not_registered"
             android:textColor="@android:color/holo_purple"
@@ -76,11 +85,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:gravity="center"
             android:text="@string/copyright"
             android:textColor="@android:color/holo_purple"
-            android:textSize="17dp" />
+            android:textSize="15dp" />
     </LinearLayout>
 
 </LinearLayout>
