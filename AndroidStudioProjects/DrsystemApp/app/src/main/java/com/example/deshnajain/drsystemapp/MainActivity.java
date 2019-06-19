@@ -3,6 +3,8 @@ package com.example.deshnajain.drsystemapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.deshnajain.drsystemapp.Fragment.HelloFragment;
 
 import static com.example.deshnajain.drsystemapp.R.id.LoginBtn;
 
@@ -64,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case LoginBtn:
+                /*FragmentManager fragmentManager=getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+                HelloFragment hello = new HelloFragment();
+                fragmentTransaction.add(R.id.fragment,hello, "Hello").addToBackStack("Hello").commit();*/
                 Log.i(TAG,"Login button clicked...");
                 validateLoginScreen();
                 break;

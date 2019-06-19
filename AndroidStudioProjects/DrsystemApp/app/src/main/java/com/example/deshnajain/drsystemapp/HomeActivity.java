@@ -69,8 +69,8 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                createNotification();
+
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -86,6 +86,11 @@ public class HomeActivity extends AppCompatActivity
         calendar.set(calendar.SECOND,0);
         calendar.set(calendar.MILLISECOND,0);
         setAlarm(calendar);
+    }
+
+    private void createNotification() {
+        Intent intent=new Intent(this,NotificationActivity.class);
+        startActivity(intent);
     }
 
     private void setAlarm(Calendar targetCal) {
@@ -141,8 +146,10 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_edit) {
             editProfileView();
         } else if (id == R.id.nav_search) {
-
+searchUsers();
         } else if (id == R.id.nav_logout) {
+            this.finish();
+            Toast.makeText(this,"Logged out",Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_share) {
 
@@ -153,6 +160,11 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void searchUsers() {
+        Intent intent = new Intent(this,SearchActivity.class);
+        startActivity(intent);
     }
 
     private void editProfileView() {

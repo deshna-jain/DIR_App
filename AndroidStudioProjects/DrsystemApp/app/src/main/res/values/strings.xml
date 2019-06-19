@@ -46,5 +46,11 @@
     <string name="fpasssword">Forgot password!!</string>
     <string name="submit">SUBMIT</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello</string>
+    <string name="to">To:</string>
+    <string name="title">Title:</string>
+    <string name="send">Send</string>
+
 
 </resources>
