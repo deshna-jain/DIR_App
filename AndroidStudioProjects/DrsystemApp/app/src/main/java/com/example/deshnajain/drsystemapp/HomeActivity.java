@@ -2,6 +2,7 @@ package com.example.deshnajain.drsystemapp;;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -115,9 +118,13 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home, menu);
+           SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            MenuItem searchItem = menu.findItem(R.id.search_button);
+            SearchView searchView = (SearchView) searchItem.getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            return true;
     }
 
     @Override
@@ -125,6 +132,7 @@ public class HomeActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -145,9 +153,9 @@ public class HomeActivity extends AppCompatActivity
                     startProfileView();
         } else if (id == R.id.nav_edit) {
             editProfileView();
-        } else if (id == R.id.nav_search) {
+        } /*else if (id == R.id.nav_search) {
 searchUsers();
-        } else if (id == R.id.nav_logout) {
+        }*/ else if (id == R.id.nav_logout) {
             this.finish();
             Toast.makeText(this,"Logged out",Toast.LENGTH_LONG).show();
 
@@ -162,10 +170,10 @@ searchUsers();
         return true;
     }
 
-    private void searchUsers() {
+   /* private void searchUsers() {
         Intent intent = new Intent(this,SearchActivity.class);
         startActivity(intent);
-    }
+    }*/
 
     private void editProfileView() {
         Intent intent = new Intent(this,EditProfile.class);

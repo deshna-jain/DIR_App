@@ -51,6 +51,7 @@
     <string name="to">To:</string>
     <string name="title">Title:</string>
     <string name="send">Send</string>
+    <string name="search">Enter user to search</string>
 
 
 </resources>
