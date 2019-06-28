@@ -52,6 +52,14 @@
     <string name="title">Title:</string>
     <string name="send">Send</string>
     <string name="search">Enter user to search</string>
+    <string name="srt">Start Date</string>
+    <string name="end">End Date</string>
+    <string name="branch">Branch</string>
+    <string name="sem">Sem</string>
+    <string name="domain">Domain</string>
+    <string name="summary">Summary</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
 
 </resources>

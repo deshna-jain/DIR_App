@@ -1,6 +1,8 @@
 package com.example.deshnajain.drsystemapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if((mUserNameEt.getText().toString().equals("example@gmail.com"))&&(mpasswordEt.getText().toString().equals("123456"))) {
             Log.i(TAG, "valid user");
             Toast.makeText(this, "Login success", Toast.LENGTH_LONG).show();
+            SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
+            sharedPreferences.edit().putString("SKey",""+mUserNameEt.getText().toString()).commit();
             gotoHomeScreen();
 
         }else{

@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -42,6 +43,7 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.recyclerView);
+
 
 
         /*Set up Linear layout for VERTICAL or HORIZONTAL Scrolling in Recycler view*/
@@ -89,6 +91,8 @@ public class HomeActivity extends AppCompatActivity
         calendar.set(calendar.SECOND,0);
         calendar.set(calendar.MILLISECOND,0);
         setAlarm(calendar);
+        SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
+        Toast.makeText(this, sharedPreferences.getString("SKey",""), Toast.LENGTH_LONG).show();
     }
 
     private void createNotification() {

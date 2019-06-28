@@ -12,6 +12,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.deshnajain.drsystemapp.Database.UserTable;
+
 import java.util.Calendar;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mpin;
     private EditText memail;
     private EditText mcontact;
-    private Button mnxtbtn;
+    private Button submitbtn;
     private Calendar calendar=Calendar.getInstance();
     private int year, month, day;
     private EditText getDateEt;
@@ -32,21 +34,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Button btn=findViewById(R.id.bckbtn);
+        //Button btn=findViewById(R.id.bckbtn);
         mfirstName= (EditText) findViewById(R.id.fname);
         mlastName= (EditText) findViewById(R.id.lname);
         mcity= (EditText) findViewById(R.id.cityname);
         mpin= (EditText) findViewById(R.id.pin);
         memail= (EditText) findViewById(R.id.email);
         mcontact= (EditText) findViewById(R.id.contact);
-        mnxtbtn= (Button) findViewById(R.id.Next);
-        btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        backToMainScreen();
-                    }
-        });
-        mnxtbtn.setOnClickListener(this);
+        submitbtn= (Button) findViewById(R.id.submitbtn);
+        submitbtn.setOnClickListener(this);
         getDateEt=findViewById(R.id.dob);
 
 
@@ -108,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.Next:
+            case R.id.submitbtn:
                 Log.i(TAG,"Next button clicked...");
                 validateRegisterScreen();
                 break;
@@ -137,6 +133,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }else{
             Log.i(TAG,"Registration Success...");
             Toast.makeText(this,"Registration Success.",Toast.LENGTH_LONG).show();
+            //UserTable inputData
         }
 
         }
