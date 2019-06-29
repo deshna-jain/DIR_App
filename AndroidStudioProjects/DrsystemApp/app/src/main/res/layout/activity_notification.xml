@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/editText14"
+            android:id="@+id/summary"
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="326dp"
             android:layout_height="106dp"
@@ -25,7 +25,7 @@
             android:background="@drawable/edit_box"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="@string/summary"
+            android:hint="@string/summary"
             android:textAlignment="center"
             android:textColor="#beffffff"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText9"
+            android:id="@+id/domain"
             android:layout_width="264dp"
             android:layout_height="29dp"
             android:layout_marginStart="8dp"
@@ -51,8 +51,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.165" />
 
-        <Spinner
-            android:id="@+id/spinner2"
+        <EditText
+            android:id="@+id/sem"
             android:layout_width="102dp"
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
@@ -61,18 +61,18 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:autofillHints="@string/branch"
             android:background="@drawable/edit_box"
+            android:paddingLeft="8dp"
             android:popupBackground="@drawable/edit_box"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.891"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.019" />
+            app:layout_constraintVertical_bias="0.025" />
 
         <EditText
-            android:id="@+id/editText13"
+            android:id="@+id/end_date"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -115,7 +115,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.017" />
+            app:layout_constraintVertical_bias="0.023" />
 
         <TextView
             android:id="@+id/textView28"
@@ -133,16 +133,18 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/editText10"
-            app:layout_constraintHorizontal_bias="0.363"
+            app:layout_constraintEnd_toStartOf="@+id/title"
+            app:layout_constraintHorizontal_bias="0.066"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.085" />
+            app:layout_constraintVertical_bias="0.1" />
 
         <EditText
-            android:id="@+id/editText10"
+            android:id="@+id/title"
             android:layout_width="275dp"
             android:layout_height="29dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
@@ -152,11 +154,13 @@
             android:paddingLeft="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.084" />
+            app:layout_constraintVertical_bias="0.099" />
 
         <EditText
-            android:id="@+id/editText11"
+            android:id="@+id/des"
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="326dp"
             android:layout_height="257dp"
@@ -169,7 +173,7 @@
             android:background="@drawable/edit_box"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="@string/description"
+            android:hint="@string/description"
             android:textAlignment="center"
             android:textColor="#beffffff"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -196,7 +200,7 @@
             app:srcCompat="@drawable/ic_menu_send" />
 
         <EditText
-            android:id="@+id/editText12"
+            android:id="@+id/srt_date"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -219,8 +223,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.288" />
 
-        <Spinner
-            android:id="@+id/spinner"
+        <EditText
+            android:id="@+id/brnch"
             android:layout_width="103dp"
             android:layout_height="29dp"
             android:layout_marginStart="8dp"
@@ -230,13 +234,14 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/edit_box"
+            android:paddingLeft="8dp"
             android:popupBackground="@drawable/edit_box"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.02"
             app:layout_constraintStart_toEndOf="@+id/textView27"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.017" />
+            app:layout_constraintVertical_bias="0.023" />
 
         <TextView
             android:id="@+id/textView29"
@@ -254,10 +259,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.599"
+            app:layout_constraintHorizontal_bias="0.608"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023" />
+            app:layout_constraintVertical_bias="0.025" />
 
         <TextView
             android:id="@+id/textView30"

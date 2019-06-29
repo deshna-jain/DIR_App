@@ -6,6 +6,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,10 +33,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.example.deshnajain.drsystemapp.Adp.RecyclerViewAdp;
+import com.example.deshnajain.drsystemapp.Database.DatabaseHelper;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     RecyclerView recyclerView;
+    private DatabaseHelper databaseHelper;
 //private TextView mViewProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +95,19 @@ public class HomeActivity extends AppCompatActivity
         calendar.set(calendar.MILLISECOND,0);
         setAlarm(calendar);
         SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
-        Toast.makeText(this, sharedPreferences.getString("SKey",""), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, sharedPreferences.getString("SKeyUser",""), Toast.LENGTH_LONG).show();
+        noti_count();
     }
 
     private void createNotification() {
         Intent intent=new Intent(this,NotificationActivity.class);
         startActivity(intent);
     }
-
+    private void noti_count() {
+        databaseHelper= DatabaseHelper.getInstance(this);
+        Cursor cursor = databaseHelper.getDataFromUser();
+        Toast.makeText(this,"Notifications: "+cursor.getCount(),Toast.LENGTH_LONG).show();
+    }
     private void setAlarm(Calendar targetCal) {
         //textAlarmPrompt.setText("\n\n***\n"+"Älarm is set"+targetCal.getTime()+"\n"+"***\n");
         Intent intent= new Intent(getBaseContext(),AlarmReceiver.class);

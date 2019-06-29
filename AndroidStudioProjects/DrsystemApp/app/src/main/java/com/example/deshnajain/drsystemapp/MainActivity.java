@@ -3,6 +3,7 @@ package com.example.deshnajain.drsystemapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.deshnajain.drsystemapp.Database.DatabaseHelper;
 import com.example.deshnajain.drsystemapp.Fragment.HelloFragment;
 
 import static com.example.deshnajain.drsystemapp.R.id.LoginBtn;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mpasswordEt;
     private Button mLoginBtn;
     private TextView fpass;
+    private DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,24 +90,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(mpasswordEt.getText().toString().isEmpty()){
             Log.i(TAG,"Login Failed Please provide password...");
             Toast.makeText(this,"Please provide password.",Toast.LENGTH_LONG).show();
-        }else if((mUserNameEt.getText().toString().equals("example@gmail.com"))&&(mpasswordEt.getText().toString().equals("123456"))) {
+        }else{
+            checkDatabase();
+
+
+        } /*if((mUserNameEt.getText().toString().equals("example@gmail.com"))&&(mpasswordEt.getText().toString().equals("123456"))) {
             Log.i(TAG, "valid user");
             Toast.makeText(this, "Login success", Toast.LENGTH_LONG).show();
             SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
             sharedPreferences.edit().putString("SKey",""+mUserNameEt.getText().toString()).commit();
-            gotoHomeScreen();
 
         }else{
             Log.i(TAG,"Login Failed,invalid user...");
             Toast.makeText(this,"Login failed, invalid user.",Toast.LENGTH_LONG).show();
-        }
+        }*/
     }
 
-    private void gotoHomeScreen() {
+    private void checkDatabase() {
+       databaseHelper= DatabaseHelper.getInstance(this);
+        Cursor cursor = databaseHelper.getDataFromUser();
+        cursor.moveToFirst();
+        do{
+            String email = cursor.getString(2);
+            String pass = cursor.getString(8);
+
+            if(mUserNameEt.getText().toString().equalsIgnoreCase(email)){
+                if(mpasswordEt.getText().toString().equalsIgnoreCase(pass)){
+                    startActivity(new Intent(this, HomeActivity.class));
+                    SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
+                    sharedPreferences.edit().putString("SKeyUser",""+mUserNameEt.getText().toString()).commit();
+                    sharedPreferences.edit().putString("SKeyPass",""+mpasswordEt.getText().toString()).commit();
+
+                }else {
+                    Toast.makeText(this, "Login failed, invalid password.", Toast.LENGTH_LONG).show();
+                }
+            }else {
+                Toast.makeText(this,"Login failed, invalid username.",Toast.LENGTH_LONG).show();
+            }
+        }while (cursor.moveToNext());
+        //cursor.close();
+        //databaseHelper.close();
+    }
+
+   /* private void gotoHomeScreen() {
         Intent intent = new Intent(this,HomeActivity.class);
         intent.putExtra(UtilsClass.NAME_LOGIN,"Welcome!!");
         startActivity(intent);
-    }
+    }*/
 
 
 }

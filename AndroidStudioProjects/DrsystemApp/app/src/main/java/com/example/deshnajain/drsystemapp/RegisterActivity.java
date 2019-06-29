@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.deshnajain.drsystemapp.Database.DatabaseHelper;
 import com.example.deshnajain.drsystemapp.Database.UserTable;
 
 import java.util.Calendar;
@@ -27,7 +30,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private Calendar calendar=Calendar.getInstance();
     private int year, month, day;
     private EditText getDateEt;
-
+    private RadioGroup radioGender;
+    private EditText pass;
+private RadioButton radioButton;
+private DatabaseHelper databaseHelper;
 
 
     @Override
@@ -44,6 +50,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         submitbtn= (Button) findViewById(R.id.submitbtn);
         submitbtn.setOnClickListener(this);
         getDateEt=findViewById(R.id.dob);
+        radioGender=(RadioGroup)findViewById(R.id.radioGender);
+        pass = (EditText)findViewById(R.id.pass);
+        int ButtonId = radioGender.getCheckedRadioButtonId();
+        radioButton =(RadioButton)findViewById(ButtonId);
+
 
 
         try{
@@ -96,10 +107,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         getDateEt.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
     }
-    private void backToMainScreen() {
+    /*private void backToMainScreen() {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
-    }
+    }*/
     private String TAG="SGSITS";
     @Override
     public void onClick(View v) {
@@ -131,9 +142,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Log.i(TAG,"Registration Failed Please provide contact no...");
             Toast.makeText(this,"Please provide contact no.",Toast.LENGTH_LONG).show();
         }else{
-            Log.i(TAG,"Registration Success...");
+             databaseHelper= DatabaseHelper.getInstance(this);
+            UserTable input=new UserTable(memail.getText().toString(),mfirstName.getText().toString(),mlastName.getText().toString(),radioButton.getText().toString(),mcity.getText().toString(),mcontact.getText().toString(),pass.getText().toString(),getDateEt.getText().toString());
+            if(databaseHelper.addUserData(input))
+            {
+                Toast.makeText(this,"Data Stored",Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "email: "+memail.getText().toString(),Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this,"Data Not Stored",Toast.LENGTH_LONG).show();
+            }
             Toast.makeText(this,"Registration Success.",Toast.LENGTH_LONG).show();
-            //UserTable inputData
+
+            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            startActivity(intent);
         }
 
         }

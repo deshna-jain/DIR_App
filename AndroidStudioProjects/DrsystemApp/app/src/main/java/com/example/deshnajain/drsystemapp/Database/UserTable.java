@@ -13,29 +13,26 @@ public class UserTable {
     private String contact = "contact";
     private String password = "password";
     private String dob = "dob";
-    private String branch = "branch";
+   // private String branch = "branch";
 
     public UserTable(SQLiteDatabase sqLiteDatabase){
         String sql="CREATE TABLE "+tableName+"("+
                 ""+id+" INTEGER PRIMARY KEY , AUTO_INCREMENT ,"+
                 ""+email+" VARCHAR(50) ,"+
-
                 ""+f_name+" VARCHAR(50) ,"+
                 ""+l_name+" VARCHAR(50) ,"+
                 ""+gender+" VARCHAR(10) ,"+
                 ""+city+" VARCHAR(50) ,"+
                 ""+contact+" BIGINT(20) ,"+
                 ""+password+" VARCHAR(50) ,"+
-                ""+dob+" DATE ,"+
-                ""+branch+" VARCHAR(20) );";
+                ""+dob+" DATE );";
         sqLiteDatabase.execSQL(sql);
 
     }
     public UserTable(){
 
     }
-    public UserTable(String id, String email, String f_name, String l_name, String gender, String city, String contact, String password, String dob, String branch) {
-        this.id = id;
+    public UserTable(String email, String f_name, String l_name, String gender, String city, String contact, String password, String dob) {
         this.email = email;
         this.f_name = f_name;
         this.l_name = l_name;
@@ -44,7 +41,6 @@ public class UserTable {
         this.contact = contact;
         this.password = password;
         this.dob = dob;
-        this.branch = branch;
     }
 
     public String getId() {
@@ -83,9 +79,9 @@ public class UserTable {
         return dob;
     }
 
-    public String getBranch() {
-        return branch;
-    }
+    //public String getBranch() {
+        //return branch;
+   // }
 
     public void setId(String id) {
         this.id = id;
@@ -123,9 +119,9 @@ public class UserTable {
         this.dob = dob;
     }
 
-    public void setBranch(String branch) {
+   /* public void setBranch(String branch) {
         this.branch = branch;
-    }
+    }*/
     public String getTableName(){
         return tableName;
     }
