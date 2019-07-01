@@ -60,6 +60,16 @@
     <string name="summary">Summary</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="Info">Institute</string>
+    <string name="company">Employement</string>
+    <string name="dur">Duration</string>
+    <string name="join">Join Date</string>
+    <string name="skilltype">Skill type</string>
+    <string name="achvmnt">Achievement</string>
+    <string name="year">Year</string>
+    <string name="save">Save</string>
+    <string name="edu">Education</string>
+    <string name="mdir">Member Directory</string>
 
 
 </resources>

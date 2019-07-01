@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.example.deshnajain.drsystemapp.RegisterActivity;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static String dbName = "dir";
@@ -27,6 +26,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         new UserTable(sqLiteDatabase);
+        new NotificationTable(sqLiteDatabase);
+        new AchievementsTable(sqLiteDatabase);
+        new SkillsTable(sqLiteDatabase);
+        new EducationTable(sqLiteDatabase);
+        new EmploymentTable(sqLiteDatabase);
+
     }
 
     @Override
@@ -57,6 +62,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+    public Boolean editUserData(UserTable userTable) {
+        UserTable keyUserName = new UserTable();
+        try {
+            SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            //contentValues.put(keyUserName.getBranch(), userTable.getBranch());
+            contentValues.put(keyUserName.getEmail(), userTable.getEmail());
+            contentValues.put(keyUserName.getF_name(), userTable.getF_name());
+            contentValues.put(keyUserName.getL_name(), userTable.getL_name());
+           // contentValues.put(keyUserName.getGender(), userTable.getGender());
+            contentValues.put(keyUserName.getCity(), userTable.getCity());
+            contentValues.put(keyUserName.getContact(), userTable.getContact());
+            contentValues.put(keyUserName.getDob(), userTable.getDob());
+            String whereclause= "id=?";
+            String whereArgs[]={userTable.getId()};
+            sqLiteDatabase.update(keyUserName.getTableName(),contentValues,whereclause,whereArgs);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+
     public Cursor getDataFromUser(){
         SQLiteDatabase sqLiteDatabase=getMyWritableDatabase();
         UserTable userTable=new UserTable();
@@ -90,7 +120,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
             ContentValues contentValues = new ContentValues();
-            //contentValues.put(keyUserName.getBranch(), userTable.getBranch());
             contentValues.put(keyNotify.getTitle(), notify.getTitle());
             contentValues.put(keyNotify.getDomain(), notify.getDomain());
             contentValues.put(keyNotify.getSrt_date(), notify.getSrt_date());
@@ -107,4 +136,74 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+    public boolean addEducation(EducationTable education){
+        EducationTable keyEducation = new EducationTable();
+        try {
+            SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(keyEducation.getId(), education.getId());
+            contentValues.put(keyEducation.getInfo(), education.getInfo());
+            contentValues.put(keyEducation.getType(), education.getType());
+            sqLiteDatabase.insert(keyEducation.getTableName(), null, contentValues);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+    public boolean addEmployement(EmploymentTable emp){
+        EmploymentTable keyEmp = new EmploymentTable();
+        try {
+            SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(keyEmp.getId(), emp.getId());
+            contentValues.put(keyEmp.getCompany_name(), emp.getCompany_name());
+            contentValues.put(keyEmp.getJoin_date(), emp.getJoin_date());
+            contentValues.put(keyEmp.getPosition(), emp.getPosition());
+            contentValues.put(keyEmp.getDuration(), emp.getDuration());
+            sqLiteDatabase.insert(keyEmp.getTableName(), null, contentValues);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+    public boolean addAchievement(AchievementsTable ach){
+        AchievementsTable keyEducation = new AchievementsTable();
+        try {
+            SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(keyEducation.getId(), ach.getId());
+            contentValues.put(keyEducation.getInfo(), ach.getInfo());
+            contentValues.put(keyEducation.getYear(), ach.getYear());
+            sqLiteDatabase.insert(keyEducation.getTableName(), null, contentValues);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+    public boolean addSkills(SkillsTable ach){
+        SkillsTable keyEducation = new SkillsTable();
+        try {
+            SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(keyEducation.getId(), ach.getId());
+            contentValues.put(keyEducation.getInfo(), ach.getInfo());
+            contentValues.put(keyEducation.getType(), ach.getType());
+            sqLiteDatabase.insert(keyEducation.getTableName(), null, contentValues);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+
 }

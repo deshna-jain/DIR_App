@@ -13,12 +13,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import com.example.deshnajain.drsystemapp.Database.NotificationTable;
 import com.example.deshnajain.drsystemapp.R;
 
 public class RecyclerViewAdp extends RecyclerView.Adapter<RecyclerViewAdp.ViewHolder> {
     private Context context;
-    private ArrayList<String> arrayList;
-    public RecyclerViewAdp(Context context, ArrayList<String> arrayList) {
+    private ArrayList<NotificationTable> arrayList;
+    public RecyclerViewAdp(Context context, ArrayList<NotificationTable> arrayList) {
         this.context=context;
         this.arrayList=arrayList;
     }
@@ -35,11 +36,11 @@ public class RecyclerViewAdp extends RecyclerView.Adapter<RecyclerViewAdp.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        viewHolder.titleTv.setText(arrayList.get(i));
+        viewHolder.titleTv.setText(arrayList.get(i).getTitle());
         viewHolder.okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,arrayList.get(i),Toast.LENGTH_LONG).show();
+                Toast.makeText(context,arrayList.get(i).getTitle(),Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -72,7 +72,9 @@
             app:layout_constraintVertical_bias="0.025" />
 
         <EditText
-            android:id="@+id/end_date"
+            android:focusable="false"
+            android:id="@+id/end"
+            android:onClick="setDate"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -82,12 +84,10 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/edit_box"
+            android:paddingLeft="8dp"
             android:ems="10"
-            android:hint="@string/end"
             android:inputType="date"
-            android:paddingLeft="5dp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
+            android:hint="@string/end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.925"
@@ -200,7 +200,9 @@
             app:srcCompat="@drawable/ic_menu_send" />
 
         <EditText
+            android:focusable="false"
             android:id="@+id/srt_date"
+            android:onClick="setDate"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -210,12 +212,10 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/edit_box"
+            android:paddingLeft="8dp"
             android:ems="10"
-            android:hint="@string/srt"
             android:inputType="date"
-            android:paddingLeft="5dp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
+            android:hint="@string/srt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.028"

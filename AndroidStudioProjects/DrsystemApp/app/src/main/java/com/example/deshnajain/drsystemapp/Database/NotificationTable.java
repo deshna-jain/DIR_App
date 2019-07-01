@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class NotificationTable {
     private String tableName="notification";
-    private String not_id="ed_id";
+    private String not_id="not_id";
     private String id = "id";
     private String des="des";
     private String title="title";
@@ -35,8 +35,9 @@ public class NotificationTable {
 
     }
 
-    public NotificationTable(String title, String domain, String srt_date, String end_date, String des, String summary, String branch, String sem) {
+    public NotificationTable(String id, String title, String domain, String srt_date, String end_date, String des, String summary, String branch, String sem) {
         this.des = des;
+        this.id=id;
         this.title = title;
         this.srt_date = srt_date;
         this.end_date = end_date;
@@ -44,6 +45,14 @@ public class NotificationTable {
         this.branch = branch;
         this.sem = sem;
         this.summary = summary;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDes() {

@@ -120,9 +120,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
                     sharedPreferences.edit().putString("SKeyUser",""+mUserNameEt.getText().toString()).commit();
                     sharedPreferences.edit().putString("SKeyPass",""+mpasswordEt.getText().toString()).commit();
+                    //sharedPreferences.edit().putString("SKeyId",cursor.getString(0)).commit();
 
                 }else {
                     Toast.makeText(this, "Login failed, invalid password.", Toast.LENGTH_LONG).show();
+
                 }
             }else {
                 Toast.makeText(this,"Login failed, invalid username.",Toast.LENGTH_LONG).show();

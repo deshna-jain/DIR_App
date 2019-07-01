@@ -34,12 +34,14 @@ import java.util.Calendar;
 
 import com.example.deshnajain.drsystemapp.Adp.RecyclerViewAdp;
 import com.example.deshnajain.drsystemapp.Database.DatabaseHelper;
+import com.example.deshnajain.drsystemapp.Database.NotificationTable;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     RecyclerView recyclerView;
     private DatabaseHelper databaseHelper;
-//private TextView mViewProfile;
+
+    //private TextView mViewProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,16 +61,31 @@ public class HomeActivity extends AppCompatActivity
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this,
                         LinearLayout.VERTICAL));
+        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(this);
+        Cursor cursor = databaseHelper.getDataFromNotification();
+        NotificationTable key = new NotificationTable();
 
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("Student 1");
-        strings.add("Student 2");
-        strings.add("Student 3");
-        strings.add("Student 4");
-        strings.add("Student 5");
-        strings.add("Student 6");
-        strings.add("Student 7");
-        strings.add("Student 8");
+
+        ArrayList<NotificationTable> strings = new ArrayList<>();
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                do {
+                    String id = cursor.getString(cursor.getColumnIndex(key.getId()));
+                    String title = cursor.getString(cursor.getColumnIndex(key.getTitle()));
+                    String des = cursor.getString(cursor.getColumnIndex(key.getDes()));
+                    String domain = cursor.getString(cursor.getColumnIndex(key.getDomain()));
+                    String branch = cursor.getString(cursor.getColumnIndex(key.getBranch()));
+                    String summary = cursor.getString(cursor.getColumnIndex(key.getSummary()));
+                    String srt_date = cursor.getString(cursor.getColumnIndex(key.getSrt_date()));
+                    String end_date = cursor.getString(cursor.getColumnIndex(key.getEnd_date()));
+                    String sem = cursor.getString(cursor.getColumnIndex(key.getSem()));
+                    strings.add(
+                            new NotificationTable(id, title, domain, srt_date, end_date, des, summary, branch, sem)
+                    );
+                } while (cursor.moveToNext());
+            }
+        }
         RecyclerViewAdp recyclerViewAdp = new RecyclerViewAdp(this, strings);
         recyclerView.setAdapter(recyclerViewAdp);
 
@@ -88,32 +105,28 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        Calendar calendar= Calendar.getInstance();
-        calendar.set(calendar.HOUR_OF_DAY,12);
-        calendar.set(calendar.MINUTE,0);
-        calendar.set(calendar.SECOND,0);
-        calendar.set(calendar.MILLISECOND,0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.HOUR_OF_DAY, 12);
+        calendar.set(calendar.MINUTE, 0);
+        calendar.set(calendar.SECOND, 0);
+        calendar.set(calendar.MILLISECOND, 0);
         setAlarm(calendar);
-        SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
-        Toast.makeText(this, sharedPreferences.getString("SKeyUser",""), Toast.LENGTH_LONG).show();
-        noti_count();
+        SharedPreferences sharedPreferences = getSharedPreferences("DrsystemApp", Context.MODE_PRIVATE);
+        Toast.makeText(this, sharedPreferences.getString("SKeyUser", ""), Toast.LENGTH_LONG).show();
+
     }
 
     private void createNotification() {
-        Intent intent=new Intent(this,NotificationActivity.class);
+        Intent intent = new Intent(this, NotificationActivity.class);
         startActivity(intent);
     }
-    private void noti_count() {
-        databaseHelper= DatabaseHelper.getInstance(this);
-        Cursor cursor = databaseHelper.getDataFromUser();
-        Toast.makeText(this,"Notifications: "+cursor.getCount(),Toast.LENGTH_LONG).show();
-    }
+
     private void setAlarm(Calendar targetCal) {
         //textAlarmPrompt.setText("\n\n***\n"+"Älarm is set"+targetCal.getTime()+"\n"+"***\n");
-        Intent intent= new Intent(getBaseContext(),AlarmReceiver.class);
-        PendingIntent pendingIntent=PendingIntent.getBroadcast(getBaseContext(),1,intent,0);
-        AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP,targetCal.getTimeInMillis(),pendingIntent);
+        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 1, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
 
 
     }
@@ -126,17 +139,6 @@ public class HomeActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home, menu);
-           SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-            MenuItem searchItem = menu.findItem(R.id.search_button);
-            SearchView searchView = (SearchView) searchItem.getActionView();
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            return true;
     }
 
     @Override
@@ -162,14 +164,14 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-                    startProfileView();
+            startProfileView();
         } else if (id == R.id.nav_edit) {
             editProfileView();
-        } /*else if (id == R.id.nav_search) {
+        } else if (id == R.id.nav_search) {
 searchUsers();
-        }*/ else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout) {
             this.finish();
-            Toast.makeText(this,"Logged out",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Logged out", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_share) {
 
@@ -182,18 +184,19 @@ searchUsers();
         return true;
     }
 
-   /* private void searchUsers() {
+    private void searchUsers() {
         Intent intent = new Intent(this,SearchActivity.class);
         startActivity(intent);
-    }*/
+    }
 
     private void editProfileView() {
-        Intent intent = new Intent(this,EditProfile.class);
+        Intent intent = new Intent(this, EditProfile.class);
         startActivity(intent);
     }
 
     private void startProfileView() {
-        Intent intent = new Intent(this,ProfileView.class);
+        Intent intent = new Intent(this, ProfileView.class);
         startActivity(intent);
     }
 }
+

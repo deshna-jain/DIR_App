@@ -2,28 +2,28 @@ package com.example.deshnajain.drsystemapp.Database;
 
 import android.database.sqlite.SQLiteDatabase;
 
-public class EducationTable {
-    private String tableName="education_detail";
+public class SkillsTable {
+    private String tableName="skills";
     private String ed_id="ed_id";
     private String id = "id";
     private String info="info";
     private String type="type";
 
-    public EducationTable(SQLiteDatabase sqLiteDatabase){
+    public SkillsTable(SQLiteDatabase sqLiteDatabase){
         String sql="CREATE TABLE "+tableName+"("+
                 ""+ed_id+" INTEGER PRIMARY KEY , AUTO_INCREMENT ,"+
-    id +" INTEGER ,"+
-     ""+info+" VARCHAR(100) ,"+
-     ""+type+" VARCHAR(50) ,"+
-     "CONSTRAINT fk_ed FOREIGN KEY (id) REFERENCES user(cus_id) ON DELETE CASCADE ON UPDATE CASCADE);";
+                id +" INTEGER ,"+
+                ""+info+" VARCHAR(100) ,"+
+                ""+type+" VARCHAR(50) ,"+
+                "CONSTRAINT fk_ed FOREIGN KEY (id) REFERENCES user(cus_id) ON DELETE CASCADE ON UPDATE CASCADE);";
         sqLiteDatabase.execSQL(sql);
 
     }
-    public EducationTable(){
+    public SkillsTable(){
 
     }
 
-    public EducationTable(String id, String info, String type) {
+    public SkillsTable(String id, String info, String type) {
         this.id = id;
         this.info = info;
         this.type = type;
@@ -64,5 +64,4 @@ public class EducationTable {
     public void setType(String type) {
         this.type = type;
     }
-
 }
