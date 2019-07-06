@@ -1,6 +1,8 @@
 package com.example.deshnajain.drsystemapp.Adp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +16,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import com.example.deshnajain.drsystemapp.Database.NotificationTable;
+import com.example.deshnajain.drsystemapp.HomeActivity;
+import com.example.deshnajain.drsystemapp.NotificationDesc;
 import com.example.deshnajain.drsystemapp.R;
+import com.example.deshnajain.drsystemapp.UtilsClass;
 
 public class RecyclerViewAdp extends RecyclerView.Adapter<RecyclerViewAdp.ViewHolder> {
     private Context context;
@@ -40,9 +45,16 @@ public class RecyclerViewAdp extends RecyclerView.Adapter<RecyclerViewAdp.ViewHo
         viewHolder.okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showDesc(i);
                 Toast.makeText(context,arrayList.get(i).getTitle(),Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void showDesc(int i) {
+        Intent intent= new Intent(context,NotificationDesc.class);
+        intent.putExtra(UtilsClass.NAME_LOGIN,arrayList.get(i).getNot_id());
+        context.startActivity(intent);
     }
 
     @Override

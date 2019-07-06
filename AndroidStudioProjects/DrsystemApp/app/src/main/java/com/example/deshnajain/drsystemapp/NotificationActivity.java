@@ -114,9 +114,10 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
             Toast.makeText(this, "Please provide summary.", Toast.LENGTH_LONG).show();
         } else {
             databaseHelper = DatabaseHelper.getInstance(this);
-            //SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
+            String id = sharedPreferences.getString("SkeyId","" );
 
-            NotificationTable notify = new NotificationTable("1", title.getText().toString(), domain.getText().toString(), srt.getText().toString(), end.getText().toString(), des.getText().toString(), summary.getText().toString(), branch.getText().toString(), sem.getText().toString());
+            NotificationTable notify = new NotificationTable(id, title.getText().toString(), domain.getText().toString(), srt.getText().toString(), end.getText().toString(), des.getText().toString(), summary.getText().toString(), branch.getText().toString(), sem.getText().toString());
             if (databaseHelper.addNotificationData(notify)) {
                 Toast.makeText(this, "Notification Sent", Toast.LENGTH_LONG).show();
                 this.finish();

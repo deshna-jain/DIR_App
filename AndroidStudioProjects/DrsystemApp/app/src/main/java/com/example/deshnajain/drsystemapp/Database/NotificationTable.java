@@ -87,6 +87,10 @@ public class NotificationTable {
         return summary;
     }
 
+    public String getNot_id() {
+        return not_id;
+    }
+
     public String getTableName() {
         return tableName;
     }

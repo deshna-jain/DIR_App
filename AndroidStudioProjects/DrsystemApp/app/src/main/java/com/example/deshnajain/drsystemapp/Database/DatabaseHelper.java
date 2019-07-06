@@ -2,6 +2,7 @@ package com.example.deshnajain.drsystemapp.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -76,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(keyUserName.getCity(), userTable.getCity());
             contentValues.put(keyUserName.getContact(), userTable.getContact());
             contentValues.put(keyUserName.getDob(), userTable.getDob());
-            String whereclause= "id=?";
+            String whereclause= "cus_id=?";
             String whereArgs[]={userTable.getId()};
             sqLiteDatabase.update(keyUserName.getTableName(),contentValues,whereclause,whereArgs);
             return true;
@@ -97,6 +98,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase=getMyWritableDatabase();
         NotificationTable notificationTable=new NotificationTable();
         return sqLiteDatabase.rawQuery("select * from "+notificationTable.getTableName(),null);
+
+    }
+    public Cursor getDataFromEmp(){
+        SQLiteDatabase sqLiteDatabase=getMyWritableDatabase();
+        EmploymentTable employmentTable=new EmploymentTable();
+        return sqLiteDatabase.rawQuery("select * from "+employmentTable.getTableName(),null);
+
+    }
+    public Cursor getDataFromEdu(){
+        SQLiteDatabase sqLiteDatabase=getMyWritableDatabase();
+        EducationTable userTable=new EducationTable();
+        return sqLiteDatabase.rawQuery("select * from "+userTable.getTableName(),null);
+
+    }
+    public Cursor getDataFromAch(){
+        SQLiteDatabase sqLiteDatabase=getMyWritableDatabase();
+        AchievementsTable userTable=new AchievementsTable();
+        return sqLiteDatabase.rawQuery("select * from "+userTable.getTableName(),null);
+
+    }
+    public Cursor getDataFromSkill(){
+        SQLiteDatabase sqLiteDatabase=getMyWritableDatabase();
+       SkillsTable userTable=new SkillsTable();
+        return sqLiteDatabase.rawQuery("select * from "+userTable.getTableName(),null);
 
     }
     public SQLiteDatabase getMyWritableDatabase(){

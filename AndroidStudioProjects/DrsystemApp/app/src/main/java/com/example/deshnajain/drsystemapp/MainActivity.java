@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.deshnajain.drsystemapp.Database.DatabaseHelper;
+import com.example.deshnajain.drsystemapp.Database.UserTable;
 import com.example.deshnajain.drsystemapp.Fragment.HelloFragment;
 
 import static com.example.deshnajain.drsystemapp.R.id.LoginBtn;
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void checkDatabase() {
        databaseHelper= DatabaseHelper.getInstance(this);
         Cursor cursor = databaseHelper.getDataFromUser();
+        UserTable userTable=new UserTable();
         cursor.moveToFirst();
         do{
             String email = cursor.getString(2);
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     SharedPreferences sharedPreferences= getSharedPreferences("DrsystemApp",Context.MODE_PRIVATE);
                     sharedPreferences.edit().putString("SKeyUser",""+mUserNameEt.getText().toString()).commit();
                     sharedPreferences.edit().putString("SKeyPass",""+mpasswordEt.getText().toString()).commit();
-                    //sharedPreferences.edit().putString("SKeyId",cursor.getString(0)).commit();
+                    sharedPreferences.edit().putString("SKeyId",""+cursor.getString(cursor.getColumnIndex(userTable.getId()))).commit();
 
                 }else {
                     Toast.makeText(this, "Login failed, invalid password.", Toast.LENGTH_LONG).show();

@@ -24,6 +24,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.HeaderViewListAdapter;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -35,11 +36,13 @@ import java.util.Calendar;
 import com.example.deshnajain.drsystemapp.Adp.RecyclerViewAdp;
 import com.example.deshnajain.drsystemapp.Database.DatabaseHelper;
 import com.example.deshnajain.drsystemapp.Database.NotificationTable;
+import com.example.deshnajain.drsystemapp.Database.UserTable;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     RecyclerView recyclerView;
-    private DatabaseHelper databaseHelper;
+    private TextView name,email;
+     DatabaseHelper databaseHelper;
 
     //private TextView mViewProfile;
     @Override
@@ -48,9 +51,9 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         recyclerView = findViewById(R.id.recyclerView);
-
-
-
+        SharedPreferences sharedPreferences = getSharedPreferences("DrsystemApp", Context.MODE_PRIVATE);
+        Toast.makeText(this, sharedPreferences.getString("SKeyUser", ""), Toast.LENGTH_LONG).show();
+        String user_id = sharedPreferences.getString("SKeyId", "");
         /*Set up Linear layout for VERTICAL or HORIZONTAL Scrolling in Recycler view*/
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this,
@@ -61,7 +64,7 @@ public class HomeActivity extends AppCompatActivity
         recyclerView.addItemDecoration(
                 new DividerItemDecoration(this,
                         LinearLayout.VERTICAL));
-        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(this);
+        databaseHelper = DatabaseHelper.getInstance(this);
         Cursor cursor = databaseHelper.getDataFromNotification();
         NotificationTable key = new NotificationTable();
 
@@ -99,7 +102,21 @@ public class HomeActivity extends AppCompatActivity
             }
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        name = (TextView) header.findViewById(R.id.nav_name);
+        email=(TextView) header.findViewById(R.id.nav_emailTv);
+        databaseHelper=DatabaseHelper.getInstance(this);
+        Cursor cursor1 = databaseHelper.getDataFromUser();
+        UserTable userTable=new UserTable();
+        cursor1.moveToFirst();
+        if(cursor1.getString(cursor1.getColumnIndex(userTable.getId())).equals(user_id)){
+            name.setText(cursor1.getString(cursor1.getColumnIndex(userTable.getF_name())));
+            email.setText(cursor1.getString(cursor1.getColumnIndex(userTable.getEmail())));
+        }
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -111,10 +128,7 @@ public class HomeActivity extends AppCompatActivity
         calendar.set(calendar.SECOND, 0);
         calendar.set(calendar.MILLISECOND, 0);
         setAlarm(calendar);
-        SharedPreferences sharedPreferences = getSharedPreferences("DrsystemApp", Context.MODE_PRIVATE);
-        Toast.makeText(this, sharedPreferences.getString("SKeyUser", ""), Toast.LENGTH_LONG).show();
-
-    }
+        }
 
     private void createNotification() {
         Intent intent = new Intent(this, NotificationActivity.class);

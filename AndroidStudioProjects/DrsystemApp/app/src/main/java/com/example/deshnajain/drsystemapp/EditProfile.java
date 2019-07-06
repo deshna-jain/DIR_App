@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +47,7 @@ public class EditProfile extends AppCompatActivity {
     private EditText getjDate;
     private Button save;
     private String pass;
+    private String id;
     DatePickerDialog.OnDateSetListener setListener;
 
     private DatabaseHelper databaseHelper;
@@ -106,6 +108,17 @@ public class EditProfile extends AppCompatActivity {
                 setDate(R.id.join_date);
             }
         });
+        databaseHelper=DatabaseHelper.getInstance(this);
+        Cursor cursor = databaseHelper.getDataFromUser();
+        UserTable key = new UserTable();
+        cursor.moveToFirst();
+        fname.setText(cursor.getString(cursor.getColumnIndex(key.getF_name())));
+        lname.setText(cursor.getString(cursor.getColumnIndex(key.getL_name())));
+        email.setText(cursor.getString(cursor.getColumnIndex(key.getEmail())));
+        city.setText(cursor.getString(cursor.getColumnIndex(key.getCity())));
+        contact.setText(cursor.getString(cursor.getColumnIndex(key.getContact())));
+        getDateEt.setText(cursor.getString(cursor.getColumnIndex(key.getDob())));
+
     }
 
     public void setDate(int id) {
@@ -139,16 +152,19 @@ public class EditProfile extends AppCompatActivity {
         databaseHelper = DatabaseHelper.getInstance(this);
         SharedPreferences sharedPreferences = getSharedPreferences("DrsystemApp", Context.MODE_PRIVATE);
         pass = sharedPreferences.getString("SKeyPass", "");
+        id = sharedPreferences.getString("SKeyId", "");
 
         UserTable edit = new UserTable(email.getText().toString(), fname.getText().toString(), lname.getText().toString(),"Female", city.getText().toString(), contact.getText().toString(),pass, getDateEt.getText().toString());
-        AchievementsTable achievementsTable = new AchievementsTable("1", ach.getText().toString(), yr.getText().toString());
-        EducationTable educationTable = new EducationTable("1", inst1.getText().toString(), etype.getSelectedItem().toString());
-        EducationTable educationTable1 = new EducationTable("1", inst2.getText().toString(), etype1.getSelectedItem().toString());
-        EmploymentTable employmentTable = new EmploymentTable("1", company.getText().toString(), getjDate.getText().toString(), post.getText().toString(), dur.getText().toString());
-        SkillsTable skillsTable = new SkillsTable("1", skill.getText().toString(), stype.getText().toString());
-        if (databaseHelper.editUserData(edit) && (databaseHelper.addAchievement(achievementsTable)) &&(databaseHelper.addEducation(educationTable))&&(databaseHelper.addEducation(educationTable1))&&(databaseHelper.addEmployement(employmentTable))&&(databaseHelper.addSkills(skillsTable))) {
+        edit.setId(id);
+        AchievementsTable achievementsTable = new AchievementsTable(id, ach.getText().toString(), yr.getText().toString());
+        EducationTable educationTable = new EducationTable(id, inst1.getText().toString(), etype.getSelectedItem().toString());
+        EducationTable educationTable1 = new EducationTable(id, inst2.getText().toString(), etype1.getSelectedItem().toString());
+        EmploymentTable employmentTable = new EmploymentTable(id, company.getText().toString(), getjDate.getText().toString(), post.getText().toString(), dur.getText().toString());
+        SkillsTable skillsTable = new SkillsTable(id,skill.getText().toString(), stype.getText().toString());
+        if ((databaseHelper.editUserData(edit))&&(databaseHelper.addAchievement(achievementsTable))&&(databaseHelper.addEducation(educationTable))&&(databaseHelper.addEducation(educationTable1))&&(databaseHelper.addEmployement(employmentTable))&&(databaseHelper.addSkills(skillsTable))){
             Toast.makeText(this, "Edit Successful", Toast.LENGTH_LONG).show();
-        } else {
+            this.finish();
+        }else {
             Toast.makeText(this, "Not Edited", Toast.LENGTH_LONG).show();
         }
     }
