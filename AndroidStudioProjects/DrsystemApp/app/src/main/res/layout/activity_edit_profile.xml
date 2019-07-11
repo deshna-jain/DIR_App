@@ -34,8 +34,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/imageView"
+   <ImageView
+        android:id="@+id/pimage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -45,17 +45,27 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+       android:maxHeight="250dp"
+       android:maxWidth="250dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="2sp"
         android:src="@drawable/th"
-        app:border_color="@color/turquise"
-        app:border_width="5dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.043" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="157dp"
+        app:srcCompat="@drawable/ic_mode_edit"
+        tools:ignore="VectorDrawableCompat" />
     <EditText
         android:id="@+id/f_name"
         android:layout_width="wrap_content"
@@ -66,7 +76,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/fname"
+        android:hint="@string/fname"
         android:gravity="center"
         android:layout_gravity="center"
         android:ems="10"
@@ -81,7 +91,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/lname"
+        android:hint="@string/lname"
         android:gravity="center"
         android:layout_gravity="center"
         android:ems="10"
@@ -100,7 +110,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text="@string/email"/>
+        android:hint="@string/email"/>
 
     <EditText
         android:id="@+id/contact"
@@ -115,7 +125,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text="@string/mno"/>
+        android:hint="@string/mno"/>
 
     <EditText
         android:id="@+id/city"
@@ -129,7 +139,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text="@string/city" />
+        android:hint="@string/city" />
     <EditText
         android:focusable="false"
         android:id="@+id/dobrth"
@@ -195,7 +205,7 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:text="@string/Info" />
+            android:hint="@string/Info" />
 
         <Spinner
             android:id="@+id/type1"
@@ -225,7 +235,7 @@
         android:gravity="center"
         android:inputType="textPersonName"
 
-        android:text="@string/Info" />
+        android:hint="@string/Info" />
 
     <Spinner
         android:id="@+id/type2"
@@ -281,7 +291,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:text="@string/Info"
+            android:hint="@string/Info"
             android:inputType="textPersonName"
             android:layout_gravity="center"
             android:gravity="center"/>
@@ -315,7 +325,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:ems="10"
-                android:text="@string/post"
+                android:hint="@string/post"
                 android:inputType="textPersonName"/>
         <EditText
             android:id="@+id/dur"
@@ -328,7 +338,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:text="@string/dur"
+            android:hint="@string/dur"
             android:inputType="textPersonName"
             android:gravity="center"/>
 
@@ -368,7 +378,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:text="@string/skills"
+            android:hint="@string/skills"
             android:inputType="textPersonName"/>
         <EditText
             android:id="@+id/stype"
@@ -381,7 +391,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:text="@string/skilltype"
+            android:hint="@string/skilltype"
             android:inputType="textPersonName"/>
 
     </LinearLayout>
@@ -400,7 +410,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:text="@string/achvmnt"
+            android:hint="@string/achvmnt"
             android:inputType="textPersonName"/>
         <EditText
             android:id="@+id/year"
@@ -413,7 +423,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
-            android:text="@string/year"
+            android:hint="@string/year"
             android:inputType="textPersonName"/>
 
     </LinearLayout>

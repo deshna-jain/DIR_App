@@ -8,8 +8,8 @@
     android:background="@drawable/side_nav_bar"
     tools:context=".ProfileView">
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/imageView"
+   <ImageView
+        android:id="@+id/pr_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -21,8 +21,8 @@
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="2sp"
         android:src="@drawable/th"
-        app:border_color="@color/green"
-        app:border_width="5dp"
+        android:scaleType="fitXY"
+       android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/pr_image"
         app:layout_constraintVertical_bias="0.009" />
 
     <ImageView

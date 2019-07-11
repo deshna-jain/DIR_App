@@ -13,6 +13,7 @@ public class UserTable {
     private String contact = "contact";
     private String password = "password";
     private String dob = "dob";
+    private String image = "image";
    // private String branch = "branch";
 
     public UserTable(SQLiteDatabase sqLiteDatabase){
@@ -25,6 +26,7 @@ public class UserTable {
                 ""+city+" VARCHAR(50) ,"+
                 ""+contact+" BIGINT(20) ,"+
                 ""+password+" VARCHAR(50) ,"+
+                ""+image+" VARCHAR(100) ,"+
                 ""+dob+" DATE );";
         sqLiteDatabase.execSQL(sql);
 
@@ -45,6 +47,14 @@ public class UserTable {
 
     public String getId() {
         return id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getEmail() {

@@ -125,12 +125,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     sharedPreferences.edit().putString("SKeyId",""+cursor.getString(cursor.getColumnIndex(userTable.getId()))).commit();
 
                 }else {
-                    Toast.makeText(this, "Login failed, invalid password.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Login failed, invalid user", Toast.LENGTH_LONG).show();
 
                 }
-            }else {
+            }/*else {
                 Toast.makeText(this,"Login failed, invalid username.",Toast.LENGTH_LONG).show();
-            }
+            }*/
         }while (cursor.moveToNext());
         //cursor.close();
         //databaseHelper.close();

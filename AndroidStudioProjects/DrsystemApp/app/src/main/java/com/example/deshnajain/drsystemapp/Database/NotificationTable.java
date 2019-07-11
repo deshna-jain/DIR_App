@@ -63,6 +63,10 @@ public class NotificationTable {
         return title;
     }
 
+    public void setNot_id(String not_id) {
+        this.not_id = not_id;
+    }
+
     public String getSrt_date() {
         return srt_date;
     }

@@ -3,8 +3,10 @@ package com.example.deshnajain.drsystemapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.deshnajain.drsystemapp.Database.DatabaseHelper;
@@ -22,6 +24,7 @@ private TextView name;
     private TextView contact;
     private TextView clg;
     private TextView schl;
+    private ImageView imageView;
 
 
     @Override
@@ -36,6 +39,7 @@ private TextView name;
         contact=findViewById(R.id.contct);
         clg=findViewById(R.id.clg);
         schl=findViewById(R.id.schl);
+        imageView = findViewById(R.id.pr_image);
         Cursor cursor=databaseHelper.getDataFromUser();
         Cursor employ=databaseHelper.getDataFromEmp();
         Cursor edu = databaseHelper.getDataFromEdu();
@@ -47,13 +51,17 @@ private TextView name;
         cursor.moveToFirst();
         employ.moveToFirst();
         edu.moveToFirst();
-            if(cursor.getString(cursor.getColumnIndex(key.getId())).equals(id)){
-                String user= cursor.getString(cursor.getColumnIndex(key.getF_name()))+" "+cursor.getString(cursor.getColumnIndex(key.getL_name()));
+        do {
+            if (cursor.getString(cursor.getColumnIndex(key.getId())).equals(id)) {
+                String user = cursor.getString(cursor.getColumnIndex(key.getF_name())) + " " + cursor.getString(cursor.getColumnIndex(key.getL_name()));
                 name.setText(user);
                 email.setText(cursor.getString(cursor.getColumnIndex(key.getEmail())));
                 city.setText(cursor.getString(cursor.getColumnIndex(key.getCity())));
                 contact.setText(cursor.getString(cursor.getColumnIndex(key.getContact())));
+                String image = cursor.getString(cursor.getColumnIndex(key.getImage()));
+                imageView.setImageBitmap(BitmapFactory.decodeFile(image));
             }
+        }while (cursor.moveToNext());
             do{
             if(employ.getString(employ.getColumnIndex(emp.getId())).equals(id)){
                 String post = employ.getString(employ.getColumnIndex(emp.getPosition()))+" at "+employ.getString(employ.getColumnIndex(emp.getCompany_name()));

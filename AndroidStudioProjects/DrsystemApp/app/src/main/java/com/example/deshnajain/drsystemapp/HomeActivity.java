@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.HeaderViewListAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -42,6 +44,7 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     RecyclerView recyclerView;
     private TextView name,email;
+    private ImageView image;
      DatabaseHelper databaseHelper;
 
     //private TextView mViewProfile;
@@ -83,9 +86,10 @@ public class HomeActivity extends AppCompatActivity
                     String srt_date = cursor.getString(cursor.getColumnIndex(key.getSrt_date()));
                     String end_date = cursor.getString(cursor.getColumnIndex(key.getEnd_date()));
                     String sem = cursor.getString(cursor.getColumnIndex(key.getSem()));
-                    strings.add(
-                            new NotificationTable(id, title, domain, srt_date, end_date, des, summary, branch, sem)
-                    );
+                    String not_id=cursor.getString(cursor.getColumnIndex(key.getNot_id()));
+                    NotificationTable notification =new NotificationTable(id, title, domain, srt_date, end_date, des, summary, branch, sem);
+                    notification.setNot_id(not_id);
+                    strings.add(notification);
                 } while (cursor.moveToNext());
             }
         }
@@ -107,14 +111,18 @@ public class HomeActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         name = (TextView) header.findViewById(R.id.nav_name);
         email=(TextView) header.findViewById(R.id.nav_emailTv);
+        image =(ImageView) header.findViewById(R.id.img);
         databaseHelper=DatabaseHelper.getInstance(this);
         Cursor cursor1 = databaseHelper.getDataFromUser();
         UserTable userTable=new UserTable();
         cursor1.moveToFirst();
-        if(cursor1.getString(cursor1.getColumnIndex(userTable.getId())).equals(user_id)){
-            name.setText(cursor1.getString(cursor1.getColumnIndex(userTable.getF_name())));
-            email.setText(cursor1.getString(cursor1.getColumnIndex(userTable.getEmail())));
-        }
+        do {
+            if (cursor1.getString(cursor1.getColumnIndex(userTable.getId())).equals(user_id)) {
+                name.setText(cursor1.getString(cursor1.getColumnIndex(userTable.getF_name())));
+                email.setText(cursor1.getString(cursor1.getColumnIndex(userTable.getEmail())));
+                image.setImageBitmap(BitmapFactory.decodeFile(cursor1.getString(cursor1.getColumnIndex(userTable.getImage()))));
+            }
+        }while (cursor1.moveToNext());
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
