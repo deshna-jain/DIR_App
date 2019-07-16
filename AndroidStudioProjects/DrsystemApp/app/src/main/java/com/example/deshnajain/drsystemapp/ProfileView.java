@@ -15,8 +15,8 @@ import com.example.deshnajain.drsystemapp.Database.EmploymentTable;
 import com.example.deshnajain.drsystemapp.Database.UserTable;
 
 public class ProfileView extends AppCompatActivity {
-DatabaseHelper databaseHelper=DatabaseHelper.getInstance(this);
-private TextView name;
+    DatabaseHelper databaseHelper=DatabaseHelper.getInstance(this);
+    private TextView name;
     private TextView company;
     private TextView exp;
     private TextView city;
@@ -62,23 +62,23 @@ private TextView name;
                 imageView.setImageBitmap(BitmapFactory.decodeFile(image));
             }
         }while (cursor.moveToNext());
-            do{
+        do{
             if(employ.getString(employ.getColumnIndex(emp.getId())).equals(id)){
                 String post = employ.getString(employ.getColumnIndex(emp.getPosition()))+" at "+employ.getString(employ.getColumnIndex(emp.getCompany_name()));
                 company.setText(post);
                 exp.setText(employ.getString(employ.getColumnIndex(emp.getDuration())));
                 break;
             }
-            }while (employ.moveToNext());
-            do {
-                if (edu.getString(edu.getColumnIndex(educationTable.getId())).equals(id)) {
-                    if (edu.getString(edu.getColumnIndex(educationTable.getType())).equalsIgnoreCase("graduation")) {
-                        clg.setText(edu.getString(edu.getColumnIndex(educationTable.getInfo())));
-                    }
-                    if (edu.getString(edu.getColumnIndex(educationTable.getType())).equalsIgnoreCase("school")) {
-                        schl.setText(edu.getString(edu.getColumnIndex(educationTable.getInfo())));
-                    }
+        }while (employ.moveToNext());
+        do {
+            if (edu.getString(edu.getColumnIndex(educationTable.getId())).equals(id)) {
+                if (edu.getString(edu.getColumnIndex(educationTable.getType())).equalsIgnoreCase("graduation")) {
+                    clg.setText(edu.getString(edu.getColumnIndex(educationTable.getInfo())));
                 }
-            }while (edu.moveToNext());
+                if (edu.getString(edu.getColumnIndex(educationTable.getType())).equalsIgnoreCase("school")) {
+                    schl.setText(edu.getString(edu.getColumnIndex(educationTable.getInfo())));
+                }
+            }
+        }while (edu.moveToNext());
     }
 }

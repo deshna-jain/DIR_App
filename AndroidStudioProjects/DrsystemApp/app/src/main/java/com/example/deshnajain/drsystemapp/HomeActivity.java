@@ -45,7 +45,8 @@ public class HomeActivity extends AppCompatActivity
     RecyclerView recyclerView;
     private TextView name,email;
     private ImageView image;
-     DatabaseHelper databaseHelper;
+    private String img;
+    DatabaseHelper databaseHelper;
 
     //private TextView mViewProfile;
     @Override
@@ -120,7 +121,8 @@ public class HomeActivity extends AppCompatActivity
             if (cursor1.getString(cursor1.getColumnIndex(userTable.getId())).equals(user_id)) {
                 name.setText(cursor1.getString(cursor1.getColumnIndex(userTable.getF_name())));
                 email.setText(cursor1.getString(cursor1.getColumnIndex(userTable.getEmail())));
-                image.setImageBitmap(BitmapFactory.decodeFile(cursor1.getString(cursor1.getColumnIndex(userTable.getImage()))));
+                img = cursor1.getString(cursor1.getColumnIndex(userTable.getImage()));
+                image.setImageBitmap(BitmapFactory.decodeFile(img));
             }
         }while (cursor1.moveToNext());
 
@@ -136,7 +138,7 @@ public class HomeActivity extends AppCompatActivity
         calendar.set(calendar.SECOND, 0);
         calendar.set(calendar.MILLISECOND, 0);
         setAlarm(calendar);
-        }
+    }
 
     private void createNotification() {
         Intent intent = new Intent(this, NotificationActivity.class);
@@ -190,7 +192,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_edit) {
             editProfileView();
         } else if (id == R.id.nav_search) {
-searchUsers();
+            searchUsers();
         } else if (id == R.id.nav_logout) {
             this.finish();
             Toast.makeText(this, "Logged out", Toast.LENGTH_LONG).show();

@@ -73,7 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(keyUserName.getEmail(), userTable.getEmail());
             contentValues.put(keyUserName.getF_name(), userTable.getF_name());
             contentValues.put(keyUserName.getL_name(), userTable.getL_name());
-           // contentValues.put(keyUserName.getGender(), userTable.getGender());
+            contentValues.put(keyUserName.getImage(), userTable.getImage());
             contentValues.put(keyUserName.getCity(), userTable.getCity());
             contentValues.put(keyUserName.getContact(), userTable.getContact());
             contentValues.put(keyUserName.getDob(), userTable.getDob());

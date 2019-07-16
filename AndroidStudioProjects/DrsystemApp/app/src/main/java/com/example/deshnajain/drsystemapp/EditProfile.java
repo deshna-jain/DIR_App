@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
@@ -67,7 +68,9 @@ public class EditProfile extends AppCompatActivity {
     private String pass;
     private String id;
     private ImageView image;
-    private String imgDecodableString;
+    private String img;
+    private String path;
+    private String realPath;
     private int PERMISSIONS_MULTIPLE_REQUEST = 100;
     DatePickerDialog.OnDateSetListener setListener;
 
@@ -123,6 +126,9 @@ public class EditProfile extends AppCompatActivity {
         jyear = calendar1.get(Calendar.YEAR);
         jmonth = calendar1.get(Calendar.MONTH);
         jday = calendar1.get(Calendar.DAY_OF_MONTH);
+        SharedPreferences sharedPreferences = getSharedPreferences("DrsystemApp", Context.MODE_PRIVATE);
+        pass = sharedPreferences.getString("SKeyPass", "");
+        id = sharedPreferences.getString("SKeyId", "");
         getDateEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,13 +144,26 @@ public class EditProfile extends AppCompatActivity {
         databaseHelper=DatabaseHelper.getInstance(this);
         Cursor cursor = databaseHelper.getDataFromUser();
         UserTable key = new UserTable();
-        cursor.moveToFirst();
-        fname.setText(cursor.getString(cursor.getColumnIndex(key.getF_name())));
-        lname.setText(cursor.getString(cursor.getColumnIndex(key.getL_name())));
-        email.setText(cursor.getString(cursor.getColumnIndex(key.getEmail())));
-        city.setText(cursor.getString(cursor.getColumnIndex(key.getCity())));
-        contact.setText(cursor.getString(cursor.getColumnIndex(key.getContact())));
-        getDateEt.setText(cursor.getString(cursor.getColumnIndex(key.getDob())));
+        try {
+            cursor.moveToFirst();
+                do {
+                    if (cursor.getString(cursor.getColumnIndex(key.getId())).equals(id)) {
+
+                    img = cursor.getString(cursor.getColumnIndex(key.getImage()));
+                    Bitmap myBitmap = BitmapFactory.decodeFile(img);
+                    image.setImageBitmap(myBitmap);
+                fname.setText(cursor.getString(cursor.getColumnIndex(key.getF_name())));
+                lname.setText(cursor.getString(cursor.getColumnIndex(key.getL_name())));
+                email.setText(cursor.getString(cursor.getColumnIndex(key.getEmail())));
+                city.setText(cursor.getString(cursor.getColumnIndex(key.getCity())));
+                contact.setText(cursor.getString(cursor.getColumnIndex(key.getContact())));
+                getDateEt.setText(cursor.getString(cursor.getColumnIndex(key.getDob())));
+            }
+        }while (cursor.moveToNext());
+        }catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
 
         imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +179,13 @@ public class EditProfile extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent=new Intent(EditProfile.this, ProfileView.class);
+        startActivity(intent);
+    }
     private void galleryImageCall() {
         GallaryPickerUtil.launchGallery(EditProfile.this);
     }
@@ -171,24 +197,36 @@ public class EditProfile extends AppCompatActivity {
         if (requestCode == GallaryPickerUtil.SELECT_FILE) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
-                // Get the cursor
-                Cursor cursor2 = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                // Move to first row
-                cursor2.moveToFirst();
-                //Get the column index of MediaStore.Images.Media.DATA
-                int columnIndex = cursor2.getColumnIndex(filePathColumn[0]);
-                //Gets the String value in the column
-                imgDecodableString = cursor2.getString(columnIndex);
-                cursor2.close();
-                // Set the Image in ImageView after decoding the String
-                image.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-              //  image.setImageURI(data.getData());
-
+                realPath = ImageFilePath.getPath(this, data.getData());
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                    image.setImageBitmap(bitmap);
+                    image.setVisibility(View.VISIBLE);
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                path=realPath;
             }
+            }
+      /*  ImageTable input=new ImageTable(path,emmail);
+        if(databaseHelper.addimg(input)) {
+            try {
+                Cursor cursor = databaseHelper.getselectImageFromUser(emmail);
+                cursor.moveToFirst();
+                do {
+                    pt = cursor.getString(0);
+                } while (cursor.moveToNext());
+                Bitmap myBitmap = BitmapFactory.decodeFile(pt);
+                imageView.setImageBitmap(myBitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(this, "Data Stored Image", Toast.LENGTH_LONG).show();
+        }*/
 
         }
-    }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -238,6 +276,7 @@ public class EditProfile extends AppCompatActivity {
 
         return false;
     }
+
 
 
     @Override
@@ -305,22 +344,19 @@ public class EditProfile extends AppCompatActivity {
     private void saveChanges() {
         //ToDO retrieve data from tables
         databaseHelper = DatabaseHelper.getInstance(this);
-        SharedPreferences sharedPreferences = getSharedPreferences("DrsystemApp", Context.MODE_PRIVATE);
-        pass = sharedPreferences.getString("SKeyPass", "");
-        id = sharedPreferences.getString("SKeyId", "");
 
-        UserTable edit = new UserTable(email.getText().toString(), fname.getText().toString(), lname.getText().toString(),"Female", city.getText().toString(), contact.getText().toString(),pass, getDateEt.getText().toString());
+        UserTable edit = new UserTable(email.getText().toString(), fname.getText().toString(), lname.getText().toString(), "Female", city.getText().toString(), contact.getText().toString(), pass, getDateEt.getText().toString());
         edit.setId(id);
-        edit.setImage(imgDecodableString);
+        edit.setImage(path);
         AchievementsTable achievementsTable = new AchievementsTable(id, ach.getText().toString(), yr.getText().toString());
         EducationTable educationTable = new EducationTable(id, inst1.getText().toString(), etype.getSelectedItem().toString());
         EducationTable educationTable1 = new EducationTable(id, inst2.getText().toString(), etype1.getSelectedItem().toString());
         EmploymentTable employmentTable = new EmploymentTable(id, company.getText().toString(), getjDate.getText().toString(), post.getText().toString(), dur.getText().toString());
-        SkillsTable skillsTable = new SkillsTable(id,skill.getText().toString(), stype.getText().toString());
-        if ((databaseHelper.editUserData(edit))&&(databaseHelper.addAchievement(achievementsTable))&&(databaseHelper.addEducation(educationTable))&&(databaseHelper.addEducation(educationTable1))&&(databaseHelper.addEmployement(employmentTable))&&(databaseHelper.addSkills(skillsTable))){
+        SkillsTable skillsTable = new SkillsTable(id, skill.getText().toString(), stype.getText().toString());
+        if ((databaseHelper.editUserData(edit)) && (databaseHelper.addAchievement(achievementsTable)) && (databaseHelper.addEducation(educationTable)) && (databaseHelper.addEducation(educationTable1)) && (databaseHelper.addEmployement(employmentTable)) && (databaseHelper.addSkills(skillsTable))) {
             Toast.makeText(this, "Edit Successful", Toast.LENGTH_LONG).show();
-            this.finish();
-        }else {
+           // this.finish();
+        } else {
             Toast.makeText(this, "Not Edited", Toast.LENGTH_LONG).show();
         }
     }

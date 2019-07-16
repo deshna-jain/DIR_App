@@ -17,6 +17,8 @@
         android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="80dp"
+        android:maxHeight="80dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="2sp"
         android:scaleType="fitXY"
